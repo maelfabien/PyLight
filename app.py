@@ -12,9 +12,9 @@ b = Bridge("192.168.1.7")
 
 st.title("Light controller")
 
-st.header("Individual Control")
-
 if st.checkbox("Manual control"):
+
+    st.header("Individual Control")
 
     if st.checkbox("Sofa Living Room"):
         bri1 = st.slider("Birghtness", 0, 255, 255)
@@ -63,6 +63,12 @@ if st.checkbox("Manual control"):
         b.set_light(3, "bri", bri)
 
 elif st.checkbox("Control from video"):
+
+    b.set_light(1, "on", False)
+    b.set_light(2, "on", False)
+    b.set_light(3, "on", False)
+
+    st.header("Video Control")
 
     vs = cv2.VideoCapture(0)
     vs.set(cv2.CAP_PROP_FPS, 25)
@@ -128,6 +134,11 @@ elif st.checkbox("Control from video"):
             b.set_light(1, "bri", bri)
             b.set_light(2, "bri", bri)
             b.set_light(3, "bri", bri)
+            #firstFrame = gray
+        else:
+            b.set_light(1, "on", False)
+            b.set_light(2, "on", False)
+            b.set_light(3, "on", False)
 
         image_placeholder.image(frame, channels="BGR")
-        time.sleep(3)
+        time.sleep(1)
